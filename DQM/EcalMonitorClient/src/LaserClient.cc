@@ -35,7 +35,6 @@ namespace ecaldqm
   LaserClient::setParams(edm::ParameterSet const& _params)
   {
     minChannelEntries_ = _params.getUntrackedParameter<int>("minChannelEntries");
-    toleranceAmplitudeLo_ = _params.getUntrackedParameter<double>("toleranceAmplitudeLo");
     toleranceAmplitudeHi_ = _params.getUntrackedParameter<double>("toleranceAmplitudeHi");
     toleranceAmpRMSRatio_ = _params.getUntrackedParameter<double>("toleranceAmpRMSRatio");
     toleranceTiming_ = _params.getUntrackedParameter<double>("toleranceTiming");
@@ -61,10 +60,12 @@ namespace ecaldqm
       wlToME_[wl] = amplitude.getIndex(repl);
     }
 
+    toleranceAmplitudeLo_.resize(nWL);
     expectedAmplitude_.resize(nWL);
     expectedTiming_.resize(nWL);
     expectedPNAmplitude_.resize(nWL);
 
+    std::vector<double> inToleranceAmplitudeLo(_params.getUntrackedParameter<std::vector<double> >("toleranceAmplitudeLo"));
     std::vector<double> inExpectedAmplitude(_params.getUntrackedParameter<std::vector<double> >("expectedAmplitude"));
     std::vector<double> inExpectedTiming(_params.getUntrackedParameter<std::vector<double> >("expectedTiming"));
     std::vector<double> inExpectedPNAmplitude(_params.getUntrackedParameter<std::vector<double> >("expectedPNAmplitude"));
@@ -72,6 +73,7 @@ namespace ecaldqm
     for(std::map<int, unsigned>::iterator wlItr(wlToME_.begin()); wlItr != wlToME_.end(); ++wlItr){
       unsigned iME(wlItr->second);
       int iWL(wlItr->first - 1);
+      toleranceAmplitudeLo_[iME] = inToleranceAmplitudeLo[iWL];
       expectedAmplitude_[iME] = inExpectedAmplitude[iWL];
       expectedTiming_[iME] = inExpectedTiming[iWL];
       expectedPNAmplitude_[iME] = inExpectedPNAmplitude[iWL];
@@ -162,7 +164,7 @@ namespace ecaldqm
         float intensity(aMean / expectedAmplitude_[wlItr->second]);
         if(isForward(id)) intensity /= forwardFactor_;
 
-        if(intensity < toleranceAmplitudeLo_
+        if(intensity < toleranceAmplitudeLo_[wlItr->second]
             || intensity > toleranceAmplitudeHi_
             || aRms > aMean * toleranceAmpRMSRatio_
             || std::abs(tMean - expectedTiming_[wlItr->second]) > toleranceTiming_ /*|| tRms > toleranceTimRMS_*/)
