@@ -366,8 +366,8 @@ namespace ecaldqm {
 
     MESet& meSCE(MEs_.at("SCE"));
     MESet& meSCELow(MEs_.at("SCELow"));
-    MESet& meSCRawE(MEs_.at("SCRawE")); //testing
-    MESet& meSCRawELow(MEs_.at("SCRawELow")); // testing
+    MESet& meSCRawE(MEs_.at("SCRawE"));
+    MESet& meSCRawELow(MEs_.at("SCRawELow"));
     MESet& meSCNBCs(MEs_.at("SCNBCs"));
     MESet& meSCNcrystals(MEs_.at("SCNcrystals"));
     MESet& meTrendSCSize(MEs_.at("TrendSCSize"));
@@ -377,6 +377,8 @@ namespace ecaldqm {
     MESet& meSingleCrystalCluster(MEs_.at("SingleCrystalCluster"));
     MESet& meSCR9(MEs_.at("SCR9"));
     MESet& meSCR9Raw(MEs_.at("SCR9Raw"));   //testing
+    MESet& meSCR9Full(MEs_.at("SCR9Full")); //testing
+    MESet& meSCR9FullRaw(MEs_.at("SCR9FullRaw"));   //testing
 
     MESet* meSCSizeVsEnergy(doExtra_ ? &MEs_.at("SCSizeVsEnergy") : nullptr);
     MESet* meSCSeedOccupancyHighE(doExtra_ ? &MEs_.at("SCSeedOccupancyHighE") : nullptr);
@@ -417,14 +419,14 @@ namespace ecaldqm {
       ++nSC;
 
       float energy(scItr->energy());
-      float rawEnergy(scItr->rawEnergy()); //testing
+      float rawEnergy(scItr->rawEnergy());
       float size(scItr->size());
 
       meSCE.fill(seedId, energy);
       meSCELow.fill(seedId, energy);
 
-      meSCRawE.fill(seedId, rawEnergy); //testing
-      meSCRawELow.fill(seedId, rawEnergy); //testing
+      meSCRawE.fill(seedId, rawEnergy);
+      meSCRawELow.fill(seedId, rawEnergy);
 
       meSCNBCs.fill(seedId, scItr->clustersSize());
       meSCNcrystals.fill(seedId, size);
@@ -445,8 +447,12 @@ namespace ecaldqm {
         meSingleCrystalCluster.fill(seedId);
 
       float e3x3(EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology()));
+      float e3x3Full(noZS::EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology())); //testing
+
       meSCR9.fill(seedId, e3x3 / energy);
       meSCR9Raw.fill(seedId, e3x3 / rawEnergy); //testing
+      meSCR9Full.fill(seedId, e3x3Full / energy); //testing
+      meSCR9FullRaw.fill(seedId, e3x3Full / rawEnergy); //testing
 
       if (doExtra_) {
         for (unsigned iT(0); iT != nTriggerTypes; ++iT) {
