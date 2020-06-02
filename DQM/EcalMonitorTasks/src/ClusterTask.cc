@@ -366,6 +366,8 @@ namespace ecaldqm {
 
     MESet& meSCE(MEs_.at("SCE"));
     MESet& meSCELow(MEs_.at("SCELow"));
+    MESet& meSCRawE(MEs_.at("SCRawE")); //testing
+    MESet& meSCRawELow(MEs_.at("SCRawELow")); // testing
     MESet& meSCNBCs(MEs_.at("SCNBCs"));
     MESet& meSCNcrystals(MEs_.at("SCNcrystals"));
     MESet& meTrendSCSize(MEs_.at("TrendSCSize"));
@@ -374,6 +376,7 @@ namespace ecaldqm {
     MESet& meSCSeedOccupancy(MEs_.at("SCSeedOccupancy"));
     MESet& meSingleCrystalCluster(MEs_.at("SingleCrystalCluster"));
     MESet& meSCR9(MEs_.at("SCR9"));
+    MESet& meSCR9Raw(MEs_.at("SCR9Raw"));   //testing
 
     MESet* meSCSizeVsEnergy(doExtra_ ? &MEs_.at("SCSizeVsEnergy") : nullptr);
     MESet* meSCSeedOccupancyHighE(doExtra_ ? &MEs_.at("SCSeedOccupancyHighE") : nullptr);
@@ -414,10 +417,14 @@ namespace ecaldqm {
       ++nSC;
 
       float energy(scItr->energy());
+      float rawEnergy(scItr->rawEnergy()); //testing
       float size(scItr->size());
 
       meSCE.fill(seedId, energy);
       meSCELow.fill(seedId, energy);
+
+      meSCRawE.fill(seedId, rawEnergy); //testing
+      meSCRawELow.fill(seedId, rawEnergy); //testing
 
       meSCNBCs.fill(seedId, scItr->clustersSize());
       meSCNcrystals.fill(seedId, size);
@@ -439,6 +446,7 @@ namespace ecaldqm {
 
       float e3x3(EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology()));
       meSCR9.fill(seedId, e3x3 / energy);
+      meSCR9Raw.fill(seedId, e3x3 / rawEnergy); //testing
 
       if (doExtra_) {
         for (unsigned iT(0); iT != nTriggerTypes; ++iT) {
