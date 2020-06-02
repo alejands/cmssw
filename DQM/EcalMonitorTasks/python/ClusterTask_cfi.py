@@ -248,7 +248,7 @@ ecalClusterTask = cms.untracked.PSet(
             btype = cms.untracked.string('User'),
             description = cms.untracked.string('Super cluster energy distribution.')
         ),
-        SCERaw = cms.untracked.PSet( #testing
+        SCRawE = cms.untracked.PSet( #testing
             path = cms.untracked.string('%(subdet)s/%(prefix)sClusterTask/%(prefix)sCLT SC raw energy'),
             kind = cms.untracked.string('TH1F'),
             otype = cms.untracked.string('Ecal2P'),
