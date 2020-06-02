@@ -272,7 +272,7 @@ ecalClusterTask = cms.untracked.PSet(
             btype = cms.untracked.string('User'),
             description = cms.untracked.string('Super cluster energy distribution.')
         ),
-        SCRawE = cms.untracked.PSet( #testing
+        SCRawE = cms.untracked.PSet(
             path = cms.untracked.string('%(subdet)s/%(prefix)sClusterTask/%(prefix)sCLT SC raw energy'),
             kind = cms.untracked.string('TH1F'),
             otype = cms.untracked.string('Ecal2P'),
@@ -336,7 +336,7 @@ ecalClusterTask = cms.untracked.PSet(
             btype = cms.untracked.string('User'),
             description = cms.untracked.string('Energy distribution (raw energy) of the super clusters (low scale).')
         ),
-        SCRawELow = cms.untracked.PSet( #testing
+        SCRawELow = cms.untracked.PSet(
             path = cms.untracked.string('%(subdet)s/%(prefix)sClusterTask/%(prefix)sCLT SC raw energy (low scale)'),
             kind = cms.untracked.string('TH1F'),
             otype = cms.untracked.string('Ecal2P'),

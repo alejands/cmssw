@@ -376,9 +376,9 @@ namespace ecaldqm {
     MESet& meSCSeedOccupancy(MEs_.at("SCSeedOccupancy"));
     MESet& meSingleCrystalCluster(MEs_.at("SingleCrystalCluster"));
     MESet& meSCR9(MEs_.at("SCR9"));
-    MESet& meSCR9Raw(MEs_.at("SCR9Raw"));   //testing
-    MESet& meSCR9Full(MEs_.at("SCR9Full")); //testing
-    MESet& meSCR9FullRaw(MEs_.at("SCR9FullRaw"));   //testing
+    MESet& meSCR9Raw(MEs_.at("SCR9Raw"));
+    MESet& meSCR9Full(MEs_.at("SCR9Full"));
+    MESet& meSCR9FullRaw(MEs_.at("SCR9FullRaw"));
 
     MESet* meSCSizeVsEnergy(doExtra_ ? &MEs_.at("SCSizeVsEnergy") : nullptr);
     MESet* meSCSeedOccupancyHighE(doExtra_ ? &MEs_.at("SCSeedOccupancyHighE") : nullptr);
@@ -447,12 +447,12 @@ namespace ecaldqm {
         meSingleCrystalCluster.fill(seedId);
 
       float e3x3(EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology()));
-      float e3x3Full(noZS::EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology())); //testing
+      float e3x3Full(noZS::EcalClusterTools::e3x3(*scItr->seed(), hits, getTopology()));
 
       meSCR9.fill(seedId, e3x3 / energy);
-      meSCR9Raw.fill(seedId, e3x3 / rawEnergy); //testing
-      meSCR9Full.fill(seedId, e3x3Full / energy); //testing
-      meSCR9FullRaw.fill(seedId, e3x3Full / rawEnergy); //testing
+      meSCR9Raw.fill(seedId, e3x3 / rawEnergy);
+      meSCR9Full.fill(seedId, e3x3Full / energy);
+      meSCR9FullRaw.fill(seedId, e3x3Full / rawEnergy);
 
       if (doExtra_) {
         for (unsigned iT(0); iT != nTriggerTypes; ++iT) {
