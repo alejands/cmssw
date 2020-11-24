@@ -48,7 +48,7 @@ namespace ecaldqm {
     }
 
     std::for_each(_ids.begin(), _ids.end(), [&](EcalElectronicsIdCollection::value_type const& id) {
-      if (id.towerId() == 69) {
+      if (id.towerId() >= 69) {
         edm::LogWarning("EcalDQM")
             << "PNDiodeTask::runOnErrors : one of the ids in the electronics ID collection is unphysical in lumi "
                "number "
