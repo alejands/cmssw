@@ -733,8 +733,8 @@ def addPFCands(process, runOnMC=False, allPF = False, addAK4=False, addAK8=False
 # Default(store SFs PFCands+TaggerInputs) for both AK4 & AK8 jets
 # nanoAOD_addbtagAK4_switch, nanoAOD_addbtagAK8_switch True, nanoAOD_allPF_switch  False
 
-nanoAOD_allPF_switch = False  # Add all PF candidates, use for training
-nanoAOD_addbtagAK4_switch = True # AK4 SFs vars
+nanoAOD_allPF_switch = True  # Add all PF candidates, use for training
+nanoAOD_addbtagAK4_switch = False # AK4 SFs vars
 nanoAOD_addbtagAK8_switch = False # AK8 SFs vars
 
 def PrepBTVCustomNanoAOD_MC(process):    
