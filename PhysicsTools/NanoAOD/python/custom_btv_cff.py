@@ -628,6 +628,7 @@ def addPFCands(process, runOnMC=False, allPF = False, addAK4=False, addAK8=False
                                                             dzErr = Var("?hasTrackDetails()?dzError():-1", float, doc="pf dz err", precision=10),
                                                             d0 = Var("dxy()", float, doc="pf d0", precision=10),
                                                             d0Err = Var("?hasTrackDetails()?dxyError():-1", float, doc="pf d0 err", precision=10),
+                                                            fromPV = Var("fromPV()", int, doc="association to primary vertex. 0: NoPV, 1: PVLoose, 2: PVTight, 3: PVUsedInFit"),
                                                             pvAssocQuality = Var("pvAssociationQuality()", int, doc="primary vertex association quality. 0: NotReconstructedPrimary, 1: OtherDeltaZ, 4: CompatibilityBTag, 5: CompatibilityDz, 6: UsedInFitLoose, 7: UsedInFitTight"),
                                                             lostInnerHits = Var("lostInnerHits()", int, doc="lost inner hits. -1: validHitInFirstPixelBarrelLayer, 0: noLostInnerHits, 1: oneLostInnerHit, 2: moreLostInnerHits"),
                                                             lostOuterHits = Var("?hasTrackDetails()?pseudoTrack().hitPattern().numberOfLostHits('MISSING_OUTER_HITS'):0", int, doc="lost outer hits"),
