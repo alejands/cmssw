@@ -90,6 +90,8 @@ void EcalDQMonitorClient::dqmEndLuminosityBlock(DQMStore::IBooker& _ibooker,
                                                 edm::EventSetup const& _es) {
   executeOnWorkers_(
       [&_ibooker](ecaldqm::DQWorker* worker) {
+        if (!client->checkElectronicsMap(false))  // to avoid crashes on empty runs
+          return;
         ecaldqm::DQWorkerClient* client(static_cast<ecaldqm::DQWorkerClient*>(worker));
         if (!client->onlineMode() && !client->runsOn(ecaldqm::DQWorkerClient::kLumi))
           return;
